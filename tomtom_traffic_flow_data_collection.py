@@ -23,7 +23,7 @@ import math
 import time
 import json
 import logging
-import hashlib
+from logging.handlers import RotatingFileHandler
 from datetime import datetime, timezone, timedelta
 from concurrent.futures import ThreadPoolExecutor, as_completed
 from typing import Tuple, List, Dict
@@ -64,10 +64,19 @@ CITY_CORDS = {
 # ---------------------------
 # Logging
 # ---------------------------
+LOG_DIR = "logs"
+os.makedirs(LOG_DIR, exist_ok=True)
+
+log_file = os.path.join(LOG_DIR, "collector.log")
+
 logging.basicConfig(
     level=logging.INFO,
     format="%(asctime)s [%(levelname)s] %(message)s",
-    handlers=[logging.StreamHandler(sys.stdout)],
+    handlers=[
+        logging.StreamHandler(sys.stdout),
+        RotatingFileHandler(log_file, maxBytes=5_000_000, backupCount=5)
+
+        ],
 )
 log = logging.getLogger("tomtom-collector")
 
@@ -91,15 +100,6 @@ CITY_CORDS = {
     "Al Qatif": {"lat": 26.5781, "lon": 49.9985},
 }
 
-# ---------------------------
-# Logging
-# ---------------------------
-logging.basicConfig(
-    level=logging.INFO,
-    format="%(asctime)s [%(levelname)s] %(message)s",
-    handlers=[logging.StreamHandler(sys.stdout)],
-)
-log = logging.getLogger("tomtom-collector")
 
 # ---------------------------
 # Utilities
@@ -529,8 +529,8 @@ def schedule_windowed_jobs(scheduler, city: str, index: dict, lock: any, weekday
 
             )
             logging.info(
-                f"Scheduled {city} job with interval {interval_minutes} every\
-                 {start_str}-{end_str} on {weekday} (hour: {h1}-{h2})"
+                f"Scheduled {city} job with interval {interval_minutes} min every "
+                 f"{start_str}-{end_str} on {weekday} (hour: {h1}-{h2})"
             )
 
 
