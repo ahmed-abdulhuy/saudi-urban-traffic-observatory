@@ -41,25 +41,6 @@ load_dotenv()
 
 TomTom_key = os.getenv("TomTom")
 
-# ---------------------------
-# Configuration / Defaults
-# ---------------------------
-DEFAULT_ZOOM = 14
-DEFAULT_RADIUS = 6  # radius in tiles around center -> (2*radius+1)^2 tiles
-DEFAULT_STYLE = "absolute"  # tomtom: relative0 | absolute | relative
-DEFAULT_OUTPUT_DIR = "dataset"
-TILE_SIZE = 512
-MAX_WORKERS = 8
-RATE_LIMIT_DELAY = 0.0  # base delay between requests if needed (seconds)
-REQUEST_TIMEOUT = 30  # seconds
-CITY_CORDS = {
-    "Riyadh": {"lat": 24.7136, "lon": 46.6753},
-    "Jeddah": {"lat": 21.5294, "lon": 39.1611},
-    "Dammam": {"lat": 26.4241, "lon": 50.0905},
-    "Al khobar": {"lat": 26.2199, "lon": 50.1932},
-    "Dhahran": {"lat": 26.2381, "lon": 50.0430},
-    "Al Qatif": {"lat": 26.5781, "lon": 49.9985},
-}
 
 # ---------------------------
 # Logging
@@ -85,7 +66,7 @@ log = logging.getLogger("tomtom-collector")
 # ---------------------------
 DEFAULT_ZOOM = 14
 DEFAULT_RADIUS = 6  # radius in tiles around center -> (2*radius+1)^2 tiles
-DEFAULT_STYLE = "relative0"  # tomtom: relative0 | absolute | relative
+DEFAULT_STYLE = "relative"  # tomtom: relative0 | absolute | relative
 DEFAULT_OUTPUT_DIR = "dataset"
 TILE_SIZE = 512
 MAX_WORKERS = 8
