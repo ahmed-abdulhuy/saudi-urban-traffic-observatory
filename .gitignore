@@ -1,6 +1,6 @@
 .vscode
 
 dataset
-env-congestion-data
+.venv
 logs
 .env
