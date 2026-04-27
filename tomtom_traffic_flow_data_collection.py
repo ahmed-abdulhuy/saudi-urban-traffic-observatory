@@ -69,8 +69,8 @@ DEFAULT_RADIUS = 6  # radius in tiles around center -> (2*radius+1)^2 tiles
 DEFAULT_STYLE = "relative"  # tomtom: relative0 | absolute | relative
 DEFAULT_OUTPUT_DIR = "dataset"
 TILE_SIZE = 512
-MAX_WORKERS = 8
-RATE_LIMIT_DELAY = 0.0  # base delay between requests if needed (seconds)
+MAX_WORKERS = 16
+RATE_LIMIT_DELAY = 0.005  # base delay between requests if needed (seconds)
 REQUEST_TIMEOUT = 30  # seconds
 CITY_CORDS = {
     "Riyadh": {"lat": 24.7136, "lon": 46.6753},
@@ -322,8 +322,9 @@ def take_snapshot(api_key: str, city_name: str, index: str, lat: float, lon: flo
     }
 
     save_metadata(output_dir, index, metadata)
-    log.info("Sleeping %d seconds until next snapshot...", interval_seconds)
-    time.sleep(interval_seconds)
+    # * Not required to sleep here
+    # log.info("Sleeping %d seconds until next snapshot...", interval_seconds)
+    # time.sleep(interval_seconds)
     return metadata
 
 # ---------------------------
